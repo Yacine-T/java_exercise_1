@@ -24,10 +24,10 @@ public class Launcher {
             }
             else if (txt.equals("fibo"))
             {
-                System.out.println("Enter e number, please : ");
+                System.out.println("Enter a number, please : ");
                 String n = sc.nextLine();
                 int res = fibo(Integer.parseInt(n));
-                System.out.println("The result of fibonacci suite  for the number " + n + "is " + res);
+                System.out.println(res);
 
             }
             else if (txt.equals("freq"))
@@ -75,7 +75,7 @@ public class Launcher {
         sortedEntries.sort(Comparator.<Entry<String, Integer>, Integer>comparing(e -> e.getValue()).reversed());
         for (int i = 0; i < 3; i++)
         {
-         System.out.println(sortedEntries.get(i));
+         System.out.print(sortedEntries.get(i).getKey() + " ");
         }
     }
 
@@ -84,7 +84,7 @@ public class Launcher {
         int nb1 = 0;
         int nb2 = 1;
         int nb3 = 0;
-        for(int i = 2; i < n; i++)
+        for(int i = 2; i <= n; i++)
         {
             nb3 = nb1 + nb2;
             nb1 = nb2;
