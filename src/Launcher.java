@@ -18,78 +18,67 @@ public class Launcher {
         System.out.println("Enter a command, please :");
         try (Scanner sc = new Scanner(System.in)) {
             String txt = sc.nextLine();
-            if (txt.equals("quit"))
-            {
-                System.out.println("You're exiting the program ...");
-            }
-            else if (txt.equals("fibo"))
-            {
-                System.out.println("Enter a number, please : ");
-                String n = sc.nextLine();
-                int res = fibo(Integer.parseInt(n));
-                System.out.println(res);
+            while (!txt.equals("quit")) {
 
-            }
-            else if (txt.equals("freq"))
-            {
-                System.out.println("Pourriez-vous indiquer le chemin vers le fichier que vous souhaitez lire, svp ? ");
-                Path path = Paths.get(sc.nextLine());
-                String content = Files.readString(path);
-                freq(content);
-            }
-            else
-            {
-                while(!txt.equals("quit") || !txt.equals("fibo") || !txt.equals("freq"))
-                {
+                if (txt.equals("fibo")) {
+                    System.out.println("Enter a number, please : ");
+                    String n = sc.nextLine();
+                    int res = fibo(Integer.parseInt(n));
+                    System.out.println(res);
+                    System.exit(0);
+
+                } else if (txt.equals("freq")) {
+                    System.out.println("Pourriez-vous indiquer le chemin vers le fichier que vous souhaitez lire, svp ? ");
+                    Path path = Paths.get(sc.nextLine());
+                    String content = Files.readString(path);
+                    freq(content);
+                    System.exit(0);
+                } else {
+
                     System.out.println("Unknown command !");
                     System.out.println("Enter a command, please :");
                     txt = sc.nextLine();
                 }
-                System.out.println("You're exiting the program ...");
-                System.out.println("Program exited !");
             }
+            System.out.println("You're exiting the program ...");
+            System.out.println("Program exited !");
+            System.exit(0);
+
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
     }
 
-    public static void freq(String str)
-    {
+    public static void freq(String str) {
         String[] words = str.split(" ");
         HashMap<String, Integer> wordsOcc = new HashMap<String, Integer>();
-        for (int i = 0; i < words.length; i++)
-        {
+        for (int i = 0; i < words.length; i++) {
             int count = 0;
             String c_word = words[i];
-            for (int j = 0; j < words.length; j++)
-            {
-                if (c_word.equals(words[j]))
-                {
+            for (int j = 0; j < words.length; j++) {
+                if (c_word.equals(words[j])) {
                     count++;
                 }
             }
             wordsOcc.put(c_word, count);
         }
 
-        List<Entry<String, Integer>> sortedEntries =  new ArrayList<>(wordsOcc.entrySet());
+        List<Entry<String, Integer>> sortedEntries = new ArrayList<>(wordsOcc.entrySet());
         sortedEntries.sort(Comparator.<Entry<String, Integer>, Integer>comparing(e -> e.getValue()).reversed());
-        for (int i = 0; i < 3; i++)
-        {
-         System.out.print(sortedEntries.get(i).getKey() + " ");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(sortedEntries.get(i).getKey() + " ");
         }
     }
 
-    public static int fibo(int n)
-    {
+    public static int fibo(int n) {
         int nb1 = 0;
         int nb2 = 1;
         int nb3 = 0;
-        for(int i = 2; i <= n; i++)
-        {
+        for (int i = 2; i <= n; i++) {
             nb3 = nb1 + nb2;
             nb1 = nb2;
-            nb2 = nb3; 
+            nb2 = nb3;
         }
-        return nb3;   
+        return nb3;
     }
 }
