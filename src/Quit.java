@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Quit implements Command{
+public class Quit implements Command {
     @Override
     public String name() {
         return "quit";

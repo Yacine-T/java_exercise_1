@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class Freq implements Command{
+public class Freq implements Command {
     @Override
     public String name() {
 

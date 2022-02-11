@@ -7,22 +7,24 @@ public class Launcher {
         cmd.add(new Quit());
         cmd.add(new Fibo());
         cmd.add(new Freq());
+        cmd.add(new Predict());
 
         System.out.println("Enter a command, please :\n");
         try (Scanner sc = new Scanner(System.in)) {
             String txt = sc.nextLine();
             while (!txt.equals(cmd.get(0).name())) {
 
-               if (txt.equals(cmd.get(1).name())) {
+                if (txt.equals(cmd.get(1).name())) {
                     cmd.get(1).run(sc);
                     System.exit(0);
 
-                }
-                else if (txt.equals(cmd.get(2).name())) {
+                } else if (txt.equals(cmd.get(2).name())) {
                     cmd.get(2).run(sc);
                     System.exit(0);
-                }
-                else {
+                } else if (txt.equals(cmd.get(3).name())) {
+                    cmd.get(3).run(sc);
+                    System.exit(0);
+                } else {
 
                     System.out.println("Unknown command !");
                     System.out.println("Enter a command, please :");
