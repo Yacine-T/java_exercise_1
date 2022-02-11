@@ -2,16 +2,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Scanner;
-import java.util.Set;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
@@ -31,6 +23,8 @@ public class Launcher {
                     System.out.println("Pourriez-vous indiquer le chemin vers le fichier que vous souhaitez lire, svp ? ");
                     Path path = Paths.get(sc.nextLine());
                     String content = Files.readString(path);
+                    content = content.toLowerCase();
+                    content = content.replaceAll("[^a-zA-Z0-9] ", "");
                     freq(content);
                     System.exit(0);
                 } else {
@@ -40,8 +34,6 @@ public class Launcher {
                     txt = sc.nextLine();
                 }
             }
-            System.out.println("You're exiting the program ...");
-            System.out.println("Program exited !");
             System.exit(0);
 
         } catch (NumberFormatException e) {
