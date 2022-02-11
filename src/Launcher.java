@@ -1,76 +1,38 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Launcher {
     public static void main(String[] args) throws IOException {
-        System.out.println("Enter a command, please :");
+        List<Command> cmd = new ArrayList<Command>();
+        cmd.add(new Quit());
+        cmd.add(new Fibo());
+        cmd.add(new Freq());
+
+        System.out.println("Enter a command, please :\n");
         try (Scanner sc = new Scanner(System.in)) {
             String txt = sc.nextLine();
-            while (!txt.equals("quit")) {
+            while (!txt.equals(cmd.get(0).name())) {
 
-                if (txt.equals("fibo")) {
-                    System.out.println("Enter a number, please : ");
-                    String n = sc.nextLine();
-                    int res = fibo(Integer.parseInt(n));
-                    System.out.println(res);
+               if (txt.equals(cmd.get(1).name())) {
+                    cmd.get(1).run(sc);
                     System.exit(0);
 
-                } else if (txt.equals("freq")) {
-                    System.out.println("Pourriez-vous indiquer le chemin vers le fichier que vous souhaitez lire, svp ? ");
-                    Path path = Paths.get(sc.nextLine());
-                    String content = Files.readString(path);
-                    content = content.toLowerCase();
-                    content = content.replaceAll("[^a-zA-Z0-9] ", "");
-                    freq(content);
+                }
+                else if (txt.equals(cmd.get(2).name())) {
+                    cmd.get(2).run(sc);
                     System.exit(0);
-                } else {
+                }
+                else {
 
                     System.out.println("Unknown command !");
                     System.out.println("Enter a command, please :");
                     txt = sc.nextLine();
                 }
             }
-            System.exit(0);
+            cmd.get(0).run(sc);
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void freq(String str) {
-        String[] words = str.split(" ");
-        HashMap<String, Integer> wordsOcc = new HashMap<String, Integer>();
-        for (int i = 0; i < words.length; i++) {
-            int count = 0;
-            String c_word = words[i];
-            for (int j = 0; j < words.length; j++) {
-                if (c_word.equals(words[j])) {
-                    count++;
-                }
-            }
-            wordsOcc.put(c_word, count);
-        }
-
-        List<Entry<String, Integer>> sortedEntries = new ArrayList<>(wordsOcc.entrySet());
-        sortedEntries.sort(Comparator.<Entry<String, Integer>, Integer>comparing(e -> e.getValue()).reversed());
-        for (int i = 0; i < 3; i++) {
-            System.out.print(sortedEntries.get(i).getKey() + " ");
-        }
-    }
-
-    public static int fibo(int n) {
-        int nb1 = 0;
-        int nb2 = 1;
-        int nb3 = 0;
-        for (int i = 2; i <= n; i++) {
-            nb3 = nb1 + nb2;
-            nb1 = nb2;
-            nb2 = nb3;
-        }
-        return nb3;
     }
 }
